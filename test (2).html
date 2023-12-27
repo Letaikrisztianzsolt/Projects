@@ -16,7 +16,7 @@
         }
 
         body {
-            background-color: rgb(26, 169, 236);
+            background-color: #800080;
             display: flex;
             flex-direction: column;
         }
@@ -30,7 +30,14 @@
             padding: 50px; /* Adjusted padding */
         }
 
-       
+        .bg {
+            width: 100%;
+            height: 40%; /* Adjusted the height to 40% */
+            background-image: linear-gradient(45deg, #800080 0%, #E90207 46%, #ff8c00 100%);
+            position: absolute;
+            bottom: 0; /* Position at the bottom */
+        }
+
         /* Rest of your styles */
 
         /* Add styles for the code input and button */
@@ -55,47 +62,25 @@
     </style>
 </head>
 <body>
-    <div class="bg-container">
-        <!-- Text at the top -->
-        <div class="bg" id="background">
-            <center>
-                <a>
-
-
-
-                    <h1><abbr title="Végül hány betü van a sorban? ">Boldog szülinapot!</abbr></h1>
-
-
-
-
-
-                </a>
-            </center>
-            <div class="text">
-                <center>
-                <br>
-                <p><abbr title="A secret code első száma: 7">Ezt</abbr> a weboldalt neked csináltam és ahogy látom, már ügyesen futtattad </p>
-                <br>
-                <details>
-                    <summary>Be kell írnod egy 5 számból álló kódot</summary>
-
-
-
-                    Ha ezt olvasod, azt jelenti, a
-                    <abbr title="A kövi   5   ">2</abbr> . szám a neved hossza
-
-
-
-
-
-                </details>
-                </center>
-            </div>
-            <!-- Code input section -->
-            <div class="code-input-container">
-                <input type="text" class="code-input" id="codeInput" placeholder="Ide">
-                <button class="code-button" onclick="validateCode()">Ellenőrzés</button>
-            </div>
+    <!-- Text at the top -->
+    <div class="content">
+        <center>
+            <a href="#" onclick="validateCode()">
+                <h1>Boldog szülinapot!</h1>
+            </a>
+        </center>
+        <div class="text">
+            <p><abbr title="A secret code első száma: 7">Ezt</abbr> a weboldalt neked csináltam és ahogy látom, már ügyesen futtattad </p>
+            <br>
+            <details>
+                <summary>Be kell írnod egy 5 számból álló kódot</summary>
+                Ha ezt olvasod, azt jelenti, a 2. szám a neved hossza.
+            </details>
+        </div>
+        <!-- Code input section -->
+        <div class="code-input-container">
+            <input type="text" class="code-input" id="codeInput" placeholder="Ide">
+            <button class="code-button" onclick="validateCode()">Ellenőrzés</button>
         </div>
     </div>
 
@@ -104,123 +89,54 @@
         <ul class="glass">
             <li></li>
             <li></li>
-            <li></li> 
+            <li></li> <!-- Add more li elements to create more cubes -->
             <li></li>
             <li></li>
             <li></li>
             <li></li>
             <li></li>
             <li></li>
-            <li></li>
-            <li></li> 
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
+            <!-- Add more li elements as needed -->
         </ul>
     </div>
 
     <script>
         function validateCode() {
-    var enteredCode = document.getElementById("codeInput").value;
-    if (enteredCode === "74516") {
-        window.open("https://www.youtube.com/watch?v=wKSYlkQlfPo", "_blank");
-    } else {
-        alert("Helytelen code!");
-    }
-}
-
-// Variables for dragging functionality
-let isDragging = false;
-let startY, bgPosition;
-
-// Reference to the background element
-const bgElement = document.getElementById('background');
-const bgContainer = document.querySelector('.bg-container');
-
-// Event listeners for mouse actions
-bgContainer.addEventListener('mousedown', (e) => {
-    if (e.target.classList.contains('bg-container')) {
-        isDragging = true;
-        startY = e.clientY;
-        bgPosition = parseInt(window.getComputedStyle(bgElement).bottom);
-        document.body.style.cursor = 'ns-resize'; // Change cursor when dragging
-    }
-});
-
-document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-        const deltaY = e.clientY - startY;
-        bgElement.style.bottom = `${bgPosition - deltaY}px`;
-    }
-});
-
-document.addEventListener('mouseup', () => {
-    isDragging = false;
-    document.body.style.cursor = 'auto'; // Reset cursor after dragging
-});
+            var enteredCode = document.getElementById("codeInput").value;
+            if (enteredCode === "74516") {
+                window.open("https://www.youtube.com/watch?v=wKSYlkQlfPo", "_blank");
+            } else {
+                alert("Helytelen code!");
+            }
+        }
     </script>
 </body>
 </html>
 
 <style>
-           /* Add styles for the background container */
-     .bg-container {
-         width: 100%;
-         height: 80%;
-         position: relative;
-         overflow: hidden;
-         cursor: ns-resize;
-         z-index: 0; /* Set the initial cursor shape */
-     }
-     .bg {
-            width: 100%;
-            height: 60%; /* Adjusted the height to 40% */
-            background-image: linear-gradient(90deg, rgb(10, 179, 33) 0%, #4ebcfc 45%, #1e88eb 100%);
-            position: fixed; /* Changed from absolute to fixed */
-            bottom: 0;
-            z-index: 1;
-        }
-
     .glass {
         position: absolute;
-        bottom: 0;
+        top: 0;
         left: 0;
-        width: 100vw; /* Full viewport width */
-        height: 100vh; /* Full viewport height */
+        width: 100%;
+        height: 100%;
         overflow: hidden;
-        z-index: 6;
-        pointer-events: none; /* Ensure the cubes are behind the content */
     }
+
     .glass li {
         position: absolute;
         display: block;
         list-style: none;
         width: 20px;
         height: 20px;
-        background: rgba(255, 255, 255, 0.205);
-        border: 1px solid rgba(54, 167, 241, 0.63);
-        animation: move-up 10s linear infinite, spin linear infinite;
-        bottom: -60px;
-    }
-
-    @keyframes move-up {
-        0% {
-             transform: translateY(100vh);
-            opacity: 1;
-            border-radius: 0;
-        }
-        100% {
-            transform: translateY(calc(-60vh));
-            opacity: 0;
-            border-radius: 50%;
-        }
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        animation: spin 5s linear infinite;
+        bottom: -150px;
     }
 
     .glass li:nth-child(2) {
-        left: 13%;
+        left: 10%;
         width: 20px;
         height: 20px;
         animation-delay: 2s;
@@ -228,7 +144,7 @@ document.addEventListener('mouseup', () => {
     }
 
     .glass li:nth-child(3) {
-        left: 26%;
+        left: 70%;
         width: 20px;
         height: 20px;
         animation-delay: 4s;
@@ -241,49 +157,9 @@ document.addEventListener('mouseup', () => {
         animation-delay: 0s;
         animation-duration: 18s;
     }
-    .glass li:nth-child(5) {
-        left: 100%;
-        width: 10px;
-        height: 10px;
-        animation-delay: 1s;
-        animation-duration: 3s;
-    }
-    .glass li:nth-child(6) {
-        left: 47%;
-        width: 30px;
-        height: 30px;
-        animation-delay: 5s;
-        animation-duration: 10s;
-    }
-    .glass li:nth-child(7) {
-        left: 53%;
-        width: 35px;
-        height: 35px;
-        animation-delay: 4s;
-        animation-duration: 6s;
-    }
-    .glass li:nth-child(8) {
-        left: 66%;
-        width: 12px;
-        height: 15px;
-        animation-delay: 7s;
-        animation-duration: 4s;
-    }
-    .glass li:nth-child(9) {
-        left: 80%;
-        width: 40px;
-        height: 40px;
-        animation-delay: 10s;
-        animation-duration: 10s;
-    }
-    .glass li:nth-child(10) {
-        left: 90%;
-        width: 30px;
-        height: 30px;
-        animation-delay: 3s;
-        animation-duration: 15s;
-    }
-    
+
+    /* Add more styles for additional cubes */
+
     @keyframes spin {
         0% {
             transform: translateY(0) rotate(0deg);
@@ -296,4 +172,4 @@ document.addEventListener('mouseup', () => {
             border-radius: 50%;
         }
     }
-</style> 
+</style>
